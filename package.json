@@ -1,0 +1,22 @@
+{
+  "name": "sensing",
+  "version": "1.0.0",
+  "description": "Project of crowdsensing based on foglet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etochy/sensing.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/etochy/sensing/issues"
+  },
+  "homepage": "https://github.com/etochy/sensing#readme",
+  "dependencies": {
+    "foglet-core": "^3.1.1"
+  }
+}
