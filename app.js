@@ -1,5 +1,9 @@
 'use strict'
 
+var bien = 0;
+var moyen = 0;
+var mal = 0;
+
 const Foglet = require('foglet').Foglet
 
 const app = new Foglet({
@@ -33,12 +37,38 @@ app.connection()
   // listen for incoming broadcast
   app.onBroadcast((id, msg) => {
     console.log('I have received a message from peer', id, ':', msg)
+    test(msg);
+    
   })
 
   // send our message each time we hit the button
   const btn = document.getElementById("send-message")
   btn.addEventListener("click", () => {
-    app.sendBroadcast('hello World!')
+    var x;
+    for (var i=0; i<document.radioCheck.length;i++) {
+      if (document.radioCheck[i].checked) {
+        console.log("Système = "+document.radioCheck[i].value)
+        x = document.radioCheck[i].value;
+      }
+    }
+    
+    test(x);
+    app.sendBroadcast(x)
   }, false)
 })
 .catch(console.error) // catch connection errors
+
+function test(x){
+  if(x == "Bien"){
+      bien++;
+    }
+    else if (x == "Moyen"){
+      moyen++;
+    }
+    else{
+      mal++;
+    }
+    document.getElementById("bien").innerHTML =  bien ;
+    document.getElementById("moyen").innerHTML =  moyen ;
+    document.getElementById("mal").innerHTML =  mal ;
+}
