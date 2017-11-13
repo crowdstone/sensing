@@ -52,6 +52,9 @@ app.connection()
       }
     }
     
+    if(navigator.geolocation)
+      navigator.geolocation.getCurrentPosition(maPosition);
+      
     test(x);
     app.sendBroadcast(x)
   }, false)
@@ -71,4 +74,13 @@ function test(x){
     document.getElementById("bien").innerHTML =  bien ;
     document.getElementById("moyen").innerHTML =  moyen ;
     document.getElementById("mal").innerHTML =  mal ;
+}
+
+function maPosition(position) {
+  var infopos = "Position déterminée :\n";
+  infopos += "Latitude : "+position.coords.latitude +"\n";
+  infopos += "Longitude: "+position.coords.longitude+"\n";
+  infopos += "Altitude : "+position.coords.altitude +"\n";
+  document.getElementById("maPos").innerHTML = infopos;
+  //alert(infopos);
 }
