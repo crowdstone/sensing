@@ -3,6 +3,7 @@
 var bien = 0;
 var moyen = 0;
 var mal = 0;
+var nav = false;
 
 const Foglet = require('foglet').Foglet
 
@@ -33,12 +34,30 @@ app.share()
 app.connection()
 .then(() => {
   console.log('application connected!')
+  var id = app.getRandomNeighbourId();
+  if(id !== null)
+    app.sendUnicast(id, 'init');
 
+  afficher();
+
+  if(navigator.geolocation)
+    nav = true;
   // listen for incoming broadcast
   app.onBroadcast((id, msg) => {
     console.log('I have received a message from peer', id, ':', msg)
-    test(msg);
+    choix(msg);
     
+  })
+  
+  app.onUnicast((id, msg) => {
+    console.log('I have received a message from neighbour peer', id, ':', msg)
+    if(msg == "init"){
+      var values = [bien,moyen,mal];
+      app.sendUnicast(id,values);
+    }
+    else{
+      recupData(msg);
+    }
   })
 
   // send our message each time we hit the button
@@ -52,16 +71,16 @@ app.connection()
       }
     }
     
-    if(navigator.geolocation)
+    if(nav)
       navigator.geolocation.getCurrentPosition(maPosition);
       
-    test(x);
+    choix(x);
     app.sendBroadcast(x)
   }, false)
 })
 .catch(console.error) // catch connection errors
 
-function test(x){
+function choix(x){
   if(x == "Bien"){
       bien++;
     }
@@ -71,9 +90,15 @@ function test(x){
     else{
       mal++;
     }
-    document.getElementById("bien").innerHTML =  bien ;
-    document.getElementById("moyen").innerHTML =  moyen ;
-    document.getElementById("mal").innerHTML =  mal ;
+    afficher();
+}
+
+function recupData(msg){
+  //console.log(msg.toString());
+  bien += msg[0];
+  moyen += msg[1];
+  mal += msg[2];
+  afficher();
 }
 
 function maPosition(position) {
@@ -83,4 +108,10 @@ function maPosition(position) {
   infopos += "Altitude : "+position.coords.altitude +"\n";
   document.getElementById("maPos").innerHTML = infopos;
   //alert(infopos);
+}
+
+function afficher(){
+  document.getElementById("bien").innerHTML =  bien ;
+  document.getElementById("moyen").innerHTML =  moyen ;
+  document.getElementById("mal").innerHTML =  mal ;
 }
