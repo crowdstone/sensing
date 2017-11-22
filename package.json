@@ -4,7 +4,6 @@
   "description": "Project of crowdsensing based on foglet",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "foglet-scripts start",
     "build": "cp -R ./node_modules/foglet-core/dist/* dist/"
   },
