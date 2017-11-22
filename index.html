@@ -7,7 +7,26 @@
   </head>
 
   <body>
-    <button id="send-message">Hello World!</button>
+    <!-- <button id="send-message">Hello World!</button> -->
+    
+    <form name="radioCheck">
+      <p>
+         Comment vous sentez vous? :<br />
+         <input type="radio" name="test" value="Bien"/>Bien <br />
+         <input type="radio" name="test" value="Moyen"/>Moyen <br />
+         <input type="radio" name="test" value="Mal"/>Mal <br />
+      </p>
+    </form>
+    <button id="send-message">Send </button>
+    <p>Compteur bien : </p>
+    <p id="bien"> </p>
+    <p>Compteur moyen : </p>
+    <p id="moyen"> </p>
+    <p>Compteur mal : </p>
+    <p id="mal"> </p>
+    <br />
+    <p id="maPos"> </p>
+    
     <!-- foglet-core bundle -->
     <script src="node_modules/foglet-core/dist/foglet.bundle.js"></script>
     <script src="app.js"></script>
