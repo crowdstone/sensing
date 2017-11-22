@@ -12,7 +12,8 @@ var dataInit = false;
 
 const Foglet = require('foglet').Foglet
 
-let app
+let app;
+
 
 var iceServers;
 
@@ -23,7 +24,7 @@ $.ajax({
     secret: "03b1bc5c-cf92-11e7-90e1-9498d86a9f05",
     domain: "www.sensing.com",
     application: "sensingApp",
-    room: sensing,
+    room: "sensing",
     secure: 1
   }
   , success:function(response, status){
@@ -50,7 +51,7 @@ $.ajax({
           delta: 10 * 1000, // spray-wrtc shuffle interval
           signaling: { //
             address: 'https://signaling.herokuapp.com/',
-            room: sensing // room to join
+            room: "sensing" // room to join
           }
         }
       }
@@ -131,6 +132,7 @@ $.ajax({
       }
       afficher();
     }
+    
     function broad(x, id){
       console.log("ma zone : "+maZone +" ; la sienne : "+x[1]);
       if (x[1][0] == maZone[0] && x[1][1]== maZone[1]){
