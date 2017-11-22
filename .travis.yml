@@ -1,0 +1,13 @@
+language: node_js
+node_js: node
+
+install:
+  - npm install
+  - npm run build
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
