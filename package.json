@@ -5,18 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "foglet-scripts start"
+    "start": "foglet-scripts start",
+    "build": "cp -R ./node_modules/foglet-core/dist/* dist/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/etochy/sensing.git"
+    "url": "git+https://github.com/crowdstone/sensing.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/etochy/sensing/issues"
+    "url": "https://github.com/crowdstone/sensing/issues"
   },
-  "homepage": "https://github.com/etochy/sensing#readme",
+  "homepage": "https://github.com/crowdstone/sensing#readme",
   "dependencies": {
     "foglet-core": "^3.1.1"
   },
