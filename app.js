@@ -42,7 +42,7 @@ $.ajax({
       rps: {
         type: 'spray-wrtc',
         options: {
-          protocol: 'foglet-example', // name of the protocol run by your app
+          protocol: 'sensing', // name of the protocol run by your app
           webrtc: { // WebRTC options
             trickle: true, // enable trickle (divide offers in multiple small offers sent by pieces)
             iceServers : iceServers // iceServers, we lkeave it empty for now
@@ -51,7 +51,7 @@ $.ajax({
           delta: 10 * 1000, // spray-wrtc shuffle interval
           signaling: { //
             address: 'https://signaling.herokuapp.com/',
-            room: "sensing" // room to join
+            room: 'sensing' // room to join
           }
         }
       }
