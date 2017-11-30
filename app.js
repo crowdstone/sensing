@@ -3,19 +3,30 @@
 var bien = 0;
 var moyen = 0;
 var mal = 0;
-var nav = false;
 var maZone;
 var lat;
 var long;
 var init = false;
 var dataInit = false;
+var maRoom = "sensing";
 
 const Foglet = require('foglet').Foglet
 
 let app;
 
+if(navigator.geolocation)
+  navigator.geolocation.getCurrentPosition(maPosInit);
 
 var iceServers;
+
+function maPosInit(position) {
+  var infopos = "Position déterminée :\n";
+  
+  lat = String(position.coords.latitude).split('.');
+  long = String(position.coords.longitude).split('.');
+  maRoom = "r_"+lat[0]+"."+lat[1].charAt(0)+"_"+long[0]+"."+long[1].charAt(0);
+  console.log("ma room : "+maRoom);
+}
 
 $.ajax({
   url : "https://service.xirsys.com/",
@@ -34,15 +45,20 @@ $.ajax({
      * Create the foglet protocol.
      * @param {[type]} {protocol:"chat"} [description]
      */
-     if(response.d.iceServers){
-       iceServers = response.d.iceServers;
-     }
+    if(response.d.iceServers){
+     iceServers = response.d.iceServers;
+    }
+    if(navigator.geolocation)
+        navigator.geolocation.getCurrentPosition(maPosInit);
+    
+    //while(maRoom == "sensing"){console.log(maRoom)}
+    
     app = new Foglet({
       verbose: true, // activate logs. Put false to disable them in production!
       rps: {
         type: 'spray-wrtc',
         options: {
-          protocol: 'sensing', // name of the protocol run by your app
+          protocol: maRoom, // name of the protocol run by your app
           webrtc: { // WebRTC options
             trickle: true, // enable trickle (divide offers in multiple small offers sent by pieces)
             iceServers : iceServers // iceServers, we lkeave it empty for now
@@ -51,7 +67,7 @@ $.ajax({
           delta: 10 * 1000, // spray-wrtc shuffle interval
           signaling: { //
             address: 'https://signaling.herokuapp.com/',
-            room: 'sensing' // room to join
+            room: maRoom // room to join
           }
         }
       }
@@ -73,16 +89,16 @@ $.ajax({
     var id = app.getRandomNeighbourId();
     if(id !== null){
       init = true;
-      if(navigator.geolocation){
+      if(navigator.geolocation)
         navigator.geolocation.getCurrentPosition(maPosition);
-      }
+      
     }else{
       dataInit = true;
     }
     afficher();
   
     if(navigator.geolocation)
-      nav = true;
+      navigator.geolocation.getCurrentPosition(maPosition);
     // listen for incoming broadcast
     app.onBroadcast((id, msg) => {
       console.log('I have received a message from peer', id, ':', msg)
@@ -112,7 +128,7 @@ $.ajax({
         }
       }
       
-      if(nav)
+      if(navigator.geolocation)
         navigator.geolocation.getCurrentPosition(maPosition);
         
       choix(x);
