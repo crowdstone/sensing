@@ -15,9 +15,20 @@ const Foglet = require('foglet').Foglet
 let app;
 
 if(navigator.geolocation)
-  navigator.geolocation.getCurrentPosition(maPosInit);
+  navigator.geolocation.getCurrentPosition(maPosInit,errorHandler);
+else
+  alert('Votre navigateur ne prend malheureusement pas en charge la géolocalisation.');
 
 var iceServers;
+
+function errorHandler(error)
+{
+    // On log l'erreur sans l'afficher, permet simplement de débugger.
+    console.log('Geolocation error : code '+ error.code +' - '+ error.message);
+
+    // Affichage d'un message d'erreur plus "user friendly" pour l'utilisateur.
+    alert('Une erreur est survenue durant la géolocalisation. Veuillez réessayer plus tard ou contacter le support.');
+}
 
 function maPosInit(position) {
   var infopos = "Position déterminée :\n";
@@ -26,9 +37,11 @@ function maPosInit(position) {
   long = String(position.coords.longitude).split('.');
   maRoom = "r_"+lat[0]+"."+lat[1].charAt(0)+"_"+long[0]+"."+long[1].charAt(0);
   console.log("ma room : "+maRoom);
+  mainProg();
 }
 
-$.ajax({
+function mainProg(){
+  $.ajax({
   url : "https://service.xirsys.com/",
   data : {
     ident: "etochy",
@@ -48,10 +61,6 @@ $.ajax({
     if(response.d.iceServers){
      iceServers = response.d.iceServers;
     }
-    if(navigator.geolocation)
-        navigator.geolocation.getCurrentPosition(maPosInit);
-    
-    //while(maRoom == "sensing"){console.log(maRoom)}
     
     app = new Foglet({
       verbose: true, // activate logs. Put false to disable them in production!
@@ -215,3 +224,4 @@ $.ajax({
 
   }
 });
+}
