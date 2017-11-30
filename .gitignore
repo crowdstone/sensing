@@ -16,3 +16,4 @@ resources/.arch-internal-preview.css
 *.log
 node_modules/*
 dist/*.js
+package.json
