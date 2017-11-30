@@ -40,7 +40,85 @@ function maPosInit(position) {
   mainProg();
 }
 
+function choix(x){
+  if(x == "Bien"){
+    bien++;
+  }
+  else if (x == "Moyen"){
+    moyen++;
+  }
+  else{
+    mal++;
+  }
+  afficher();
+}
+
+function broad(x, id){
+  //console.log("ma zone : "+maZone +" ; la sienne : "+x[1]);
+  //if (x[1][0] == maZone[0] && x[1][1]== maZone[1]){
+    //if(x[0] == "init"){
+  if(x == "init"){
+    var values = [bien,moyen,mal];
+    app.sendUnicast(id,values);
+  }
+  //else if (x[0] == "Bien"){
+  else if (x== "Bien"){
+    bien++;
+  }
+ //else if (x[0] == "Moyen"){
+  else if (x == "Moyen"){
+    moyen++;
+  }
+  else{
+    mal++;
+  }
+  
+  afficher();
+}
+
+function recupData(msg){
+//console.log(msg.toString());
+  if(!dataInit){
+    dataInit = true;
+    bien += msg[0];
+    moyen += msg[1];
+    mal += msg[2];
+    afficher();
+  }
+}
+
+function maPosition(position) {
+  var infopos = "Position déterminée :\n";
+  
+  lat = String(position.coords.latitude).split('.');
+  long = String(position.coords.longitude).split('.');
+  maZone = [lat[0]+"."+lat[1].charAt(0),long[0]+"."+long[1].charAt(0)];
+  
+  console.log("ma zone : "+maZone);
+  /*
+  if (init === true){
+    var x = ["init", maZone];
+    app.sendBroadcast(x);
+    init = false;
+  }
+  */
+  infopos += "Latitude : "+lat +"\n";
+  infopos += "Longitude: "+long+"\n";
+  
+  //infopos += "Altitude : "+position.coords.altitude +"\n";
+  document.getElementById("maPos").innerHTML = infopos;
+  //alert(infopos);
+}
+
+function afficher(){
+  document.getElementById("bien").innerHTML =  bien ;
+  document.getElementById("moyen").innerHTML =  moyen ;
+  document.getElementById("mal").innerHTML =  mal ;
+}
 function mainProg(){
+  
+  console.log("ntm");
+  
   $.ajax({
   url : "https://service.xirsys.com/",
   data : {
@@ -88,42 +166,35 @@ function mainProg(){
     app.connection()
     .then(() => {
       console.log('application connected!')
-      /* @deprecated
-      var id = app.getRandomNeighbourId();
-      if(id !== null)
-        app.sendUnicast(id, 'init');
-    */
 
-    //initialisation
-    var id = app.getRandomNeighbourId();
-    if(id !== null){
-      init = true;
+      //initialisation
+      var id = app.getRandomNeighbourId();
+      if(id !== null){
+        init = true;
+        //console.log("init");
+        if(navigator.geolocation)
+          navigator.geolocation.getCurrentPosition(maPosition);
+        app.sendBroadcast("init");
+        init = false;
+        
+      }else{
+        dataInit = true;
+        //console.log("dataInit");
+      }
+      afficher();
+      /*
       if(navigator.geolocation)
-        navigator.geolocation.getCurrentPosition(maPosition);
-      
-    }else{
-      dataInit = true;
-    }
-    afficher();
-  
-    if(navigator.geolocation)
-      navigator.geolocation.getCurrentPosition(maPosition);
-    // listen for incoming broadcast
-    app.onBroadcast((id, msg) => {
-      console.log('I have received a message from peer', id, ':', msg)
-      broad(msg, id);
+        navigator.geolocation.getCurrentPosition(maPosition);*/
+        
+      // listen for incoming broadcast
+      app.onBroadcast((id, msg) => {
+        console.log('I have received a message from peer', id, ':', msg)
+        broad(msg, id);
     })
-  
   
     app.onUnicast((id, msg) => {
       console.log('I have received a message from neighbour peer', id, ':', msg)
-    /*  if(msg == "init"){
-        var values = [bien,moyen,mal];
-        app.sendUnicast(id,values);
-      }
-      else{*/
-        recupData(msg);
-      //}
+      recupData(msg);
     })
 
     // send our message each time we hit the button
@@ -136,88 +207,16 @@ function mainProg(){
           x = document.radioCheck[i].value;
         }
       }
-      
+      /*
       if(navigator.geolocation)
         navigator.geolocation.getCurrentPosition(maPosition);
+      */
         
       choix(x);
-      var y = [x, maZone];
-      app.sendBroadcast(y);
+      /*var y = [x, maZone];
+      app.sendBroadcast(y);*/
+      app.sendBroadcast(x);
     }, false)
-  
-    function choix(x){
-      if(x == "Bien"){
-        bien++;
-      }
-      else if (x == "Moyen"){
-        moyen++;
-      }
-      else{
-        mal++;
-      }
-      afficher();
-    }
-    
-    function broad(x, id){
-      console.log("ma zone : "+maZone +" ; la sienne : "+x[1]);
-      if (x[1][0] == maZone[0] && x[1][1]== maZone[1]){
-        if(x[0] == "init"){
-            var values = [bien,moyen,mal];
-            app.sendUnicast(id,values);
-        }
-        else if (x[0] == "Bien"){
-          bien++;
-        }
-        else if (x[0] == "Moyen"){
-          moyen++;
-        }
-        else{
-          mal++;
-        }
-      }
-      afficher();
-    }
-  
-    function recupData(msg){
-      //console.log(msg.toString());
-      if(!dataInit){
-        dataInit = true;
-        bien += msg[0];
-        moyen += msg[1];
-        mal += msg[2];
-        afficher();
-      }
-    }
-  
-    function maPosition(position) {
-      var infopos = "Position déterminée :\n";
-      
-      lat = String(position.coords.latitude).split('.');
-      long = String(position.coords.longitude).split('.');
-      maZone = [lat[0]+"."+lat[1].charAt(0),long[0]+"."+long[1].charAt(0)];
-      
-      console.log("ma zone : "+maZone);
-      
-      if (init === true){
-        var x = ["init", maZone];
-        app.sendBroadcast(x);
-        init = false;
-      }
-      
-      infopos += "Latitude : "+lat +"\n";
-      infopos += "Longitude: "+long+"\n";
-    
-      //infopos += "Altitude : "+position.coords.altitude +"\n";
-      document.getElementById("maPos").innerHTML = infopos;
-      //alert(infopos);
-    }
-    
-    function afficher(){
-      document.getElementById("bien").innerHTML =  bien ;
-      document.getElementById("moyen").innerHTML =  moyen ;
-      document.getElementById("mal").innerHTML =  mal ;
-    }
-      
       
     })
   .catch(console.error) // catch connection errors
