@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 
 <html lang="en">
-
   <head>
-
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Capstone crowdsensing</title>
+
     <!-- foglet-core bundle -->
     <script src="dist/foglet.bundle.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script src="app.js"></script>
+    
+    <!-- bootstrap bundle -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-
   </head>
 
   <body>
-
-    <div class="jumbotron text-center">
+    <div class="jumbotron text-center text-info bg-dark">
       <h1>Capstone crowdsensing</h1>
       <p>Cartographie des émotions</p>
     </div>
@@ -31,27 +30,27 @@
           <div class="form-group">
             <p>Comment vous sentez vous? :</p>
             <div class="btn-group" data-toggle="buttons">
-              <label class="btn btn-light">
+              <label class="btn btn-outline-success">
                 <input type="radio" name="optradio" value="Bien" id="Bien">Bien
               </label>
-              <label class="btn btn-light">
+              <label class="btn btn-outline-warning">
                 <input type="radio" name="optradio" value="Moyen" id="Moyen">Moyen
               </label>
-              <label class="btn btn-light">
+              <label class="btn btn-outline-danger">
                 <input type="radio" name="optradio" value="Mal" id="Mal">Mal
               </label>
             </div>
           </div>
-          <button type="button" class="btn btn-primary" id="send-message">Send</button>
+          <button type="button" class="btn btn-info" id="send-message">Send</button>
         </form>
       </div>
 
       <br/>
 
       <div class="row">
-        <div class="col">Compteur bien <button type="button" class="btn btn-outline-success" id="bien" disabled></div>
-        <div class="col">Compteur moyen <button type="button" class="btn btn-outline-warning" id="moyen" disabled></div>
-        <div class="col">Compteur mal <button type="button" class="btn btn-outline-danger" id="mal" disabled></div>
+        <button type="button" class="btn btn-success" disabled>Compteur bien <span class="badge badge-light" id="bien"></span></button>
+        <button type="button" class="btn btn-warning" disabled>Compteur moyen <span class="badge badge-light" id="moyen"></span></button>
+        <button type="button" class="btn btn-danger" disabled>Compteur mal <span class="badge badge-light" id="mal"></span></button>
       </div>
 
       <br/>
@@ -60,7 +59,5 @@
         <button type="button" class="btn btn-info" id="maPos" disabled>
       </div>
     </div>
-
   </body>
-
 </html>
