@@ -15,5 +15,3 @@ resources/.arch-internal-preview.css
 .DS_STORE
 *.log
 node_modules/*
-dist/*.js
-package.json
