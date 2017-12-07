@@ -115,10 +115,7 @@ function afficher(){
   document.getElementById("moyen").innerHTML =  moyen ;
   document.getElementById("mal").innerHTML =  mal ;
 }
-function mainProg(){
-  
-  console.log("ntm");
-  
+function mainProg(){  
   $.ajax({
   url : "https://service.xirsys.com/",
   data : {
