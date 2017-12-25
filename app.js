@@ -4,6 +4,7 @@ var bien = 0;
 var moyen = 0;
 var mal = 0;
 var maZone;
+var ancienneZone;
 var lat;
 var long;
 var init = false;
@@ -36,6 +37,8 @@ function maPosInit(position) {
   lat = String(position.coords.latitude).split('.');
   long = String(position.coords.longitude).split('.');
   maRoom = "r_"+lat[0]+"."+lat[1].charAt(0)+"_"+long[0]+"."+long[1].charAt(0);
+  maZone = lat[0]+"."+lat[1].charAt(0)+"_"+long[0]+"."+long[1].charAt(0);
+  ancienneZone = maZone;
   console.log("ma room : "+maRoom);
   mainProg();
 }
@@ -90,11 +93,14 @@ function recupData(msg){
 function maPosition(position) {
   var infopos = "Position déterminée :\n";
   
+  ancienneZone = maZone;
+  
   lat = String(position.coords.latitude).split('.');
   long = String(position.coords.longitude).split('.');
-  maZone = [lat[0]+"."+lat[1].charAt(0),long[0]+"."+long[1].charAt(0)];
+  maZone = lat[0]+"."+lat[1].charAt(0)+"_"+long[0]+"."+long[1].charAt(0);
   
   console.log("ma zone : "+maZone);
+  console.log("ancienne zone : "+ancienneZone);
   /*
   if (init === true){
     var x = ["init", maZone];
@@ -115,7 +121,8 @@ function afficher(){
   document.getElementById("moyen").innerHTML =  moyen ;
   document.getElementById("mal").innerHTML =  mal ;
 }
-function mainProg(){  
+
+function mainProg(){
   $.ajax({
   url : "https://service.xirsys.com/",
   data : {
@@ -193,8 +200,7 @@ function mainProg(){
       console.log('I have received a message from neighbour peer', id, ':', msg)
       recupData(msg);
     })
-
-    // send our message each time we hit the button
+          // send our message each time we hit the button
     const btn = document.getElementById("send-message")
     btn.addEventListener("click", () => {
       var x;
@@ -204,17 +210,22 @@ function mainProg(){
           x = document.radioCheck[i].value;
         }
       }
-      /*
+      
       if(navigator.geolocation)
         navigator.geolocation.getCurrentPosition(maPosition);
-      */
-        
-      choix(x);
-      /*var y = [x, maZone];
-      app.sendBroadcast(y);*/
-      app.sendBroadcast(x);
-    }, false)
       
+      // verifier que la zone reste la meme
+      if(maZone == ancienneZone){
+        choix(x);
+        app.sendBroadcast(x);
+      }
+      else{
+        // la zone a changé
+        alert("Votre zone géographique a changé, réinitialisation de la page");
+        location.reload() ; // rechargement brut de la page #tresTresSale
+      }
+        
+    }, false)
     })
   .catch(console.error) // catch connection errors
 
