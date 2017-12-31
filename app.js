@@ -89,10 +89,12 @@ function broad(x, id){
   }
   */
   //ALGO DE VERIFICATION DES DONNEES
-  nb++;
-  all += x;
-  stat = all / nb;
-  afficher();
+  else{
+    nb++;
+    all += x;
+    stat = all / nb;
+    afficher();
+  }
 }
 
 function recupData(msg){
