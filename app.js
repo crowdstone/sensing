@@ -1,8 +1,14 @@
 'use strict'
 
-var bien = 0;
+/*var bien = 0;
 var moyen = 0;
 var mal = 0;
+*/
+
+var stat = 0;
+var all = 0;
+var nb = 0;
+
 var maZone;
 var ancienneZone;
 var lat;
@@ -44,6 +50,7 @@ function maPosInit(position) {
 }
 
 function choix(x){
+  /*
   if(x == "Bien"){
     bien++;
   }
@@ -52,7 +59,11 @@ function choix(x){
   }
   else{
     mal++;
-  }
+  }*/
+  nb ++;
+  all += x;
+  stat = all/nb;
+  
   afficher();
 }
 
@@ -61,21 +72,26 @@ function broad(x, id){
   //if (x[1][0] == maZone[0] && x[1][1]== maZone[1]){
     //if(x[0] == "init"){
   if(x == "init"){
-    var values = [bien,moyen,mal];
+    //var values = [bien,moyen,mal];
+    var values = [all, nb];
     app.sendUnicast(id,values);
   }
-  //else if (x[0] == "Bien"){
+ /*
   else if (x== "Bien"){
     bien++;
   }
- //else if (x[0] == "Moyen"){
+ 
   else if (x == "Moyen"){
     moyen++;
   }
   else{
     mal++;
   }
-  
+  */
+  //ALGO DE VERIFICATION DES DONNEES
+  nb++;
+  all += x;
+  stat = all / nb;
   afficher();
 }
 
@@ -83,9 +99,13 @@ function recupData(msg){
 //console.log(msg.toString());
   if(!dataInit){
     dataInit = true;
+    /*
     bien += msg[0];
     moyen += msg[1];
     mal += msg[2];
+    */
+    all += msg[0];
+    nb += msg[1];
     afficher();
   }
 }
@@ -117,9 +137,9 @@ function maPosition(position) {
 }
 
 function afficher(){
-  document.getElementById("bien").innerHTML =  bien ;
-  document.getElementById("moyen").innerHTML =  moyen ;
-  document.getElementById("mal").innerHTML =  mal ;
+  document.getElementById("bien").innerHTML =  nb ;
+  document.getElementById("moyen").innerHTML =  all ;
+  document.getElementById("mal").innerHTML =  stat ;
 }
 
 function mainProg(){
@@ -204,13 +224,18 @@ function mainProg(){
     const btn = document.getElementById("send-message")
     btn.addEventListener("click", () => {
       var x;
+      
+      /*
       for (var i=0; i<document.radioCheck.length;i++) {
         if (document.radioCheck[i].checked) {
           console.log("Système = "+document.radioCheck[i].value)
           x = document.radioCheck[i].value;
         }
       }
+      */
       
+      console.log("sys : " + document.radioCheck.optradio.value);
+      x = parseInt(document.radioCheck.optradio.value);
       if(navigator.geolocation)
         navigator.geolocation.getCurrentPosition(maPosition);
       

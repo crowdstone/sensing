@@ -28,7 +28,9 @@
       <div class="row">
         <form name="radioCheck">
           <div class="form-group">
-            <p>Comment vous sentez vous? :</p>
+            <p>Temperature ? :</p>
+            
+            <!--
             <div class="btn-group" data-toggle="buttons">
               <label class="btn btn-outline-success">
                 <input type="radio" name="optradio" value="Bien" id="Bien">Bien
@@ -40,6 +42,9 @@
                 <input type="radio" name="optradio" value="Mal" id="Mal">Mal
               </label>
             </div>
+            -->
+            
+            <input type="text" name="optradio" id="Temp">
           </div>
           <button type="button" class="btn btn-info" id="send-message">Send</button>
         </form>
@@ -48,9 +53,9 @@
       <br/>
 
       <div class="row">
-        <button type="button" class="btn btn-success" disabled>Compteur bien <span class="badge badge-light" id="bien"></span></button>
-        <button type="button" class="btn btn-warning" disabled>Compteur moyen <span class="badge badge-light" id="moyen"></span></button>
-        <button type="button" class="btn btn-danger" disabled>Compteur mal <span class="badge badge-light" id="mal"></span></button>
+        <button type="button" class="btn btn-success" disabled>NB <span class="badge badge-light" id="bien"></span></button>
+        <button type="button" class="btn btn-warning" disabled>ALL <span class="badge badge-light" id="moyen"></span></button>
+        <button type="button" class="btn btn-danger" disabled>STAT <span class="badge badge-light" id="mal"></span></button>
       </div>
 
       <br/>
