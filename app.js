@@ -69,15 +69,20 @@ function choix(x){
       nb = 0;
       all = 0;
       stat = 0;
+      afficher();
+      return false;
     }else{
       nb ++;
       all += x;
       stat = all/nb;
+      afficher();
+      return true;
     }
-    afficher();
+    
   }
   else{
     console.log("la verif est pas passé");
+    return false;
   }
 }
 
@@ -97,9 +102,9 @@ function envoyerDonnees(){
     }
     else{
       //Envoyer au serveur !------------------------------------------------------ ENVOI ----------------------------------------------
+      console.log("envoyer données");
       
       envoye = true;
-      
       return true;
     }
   }
@@ -165,6 +170,7 @@ function recupData(msg){
     */
     all += msg[0];
     nb += msg[1];
+    stat = all / nb;
     afficher();
   }
 }
@@ -300,8 +306,9 @@ function mainProg(){
       
       // verifier que la zone reste la meme
       if(maZone == ancienneZone){
-        choix(x);
-        app.sendBroadcast(x);
+        if(choix(x)){
+          app.sendBroadcast(x);
+        }
       }
       else{
         // la zone a changé
