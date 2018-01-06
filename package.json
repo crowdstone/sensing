@@ -1,0 +1,26 @@
+{
+  "name": "sensing",
+  "version": "1.0.0",
+  "description": "Project of crowdsensing based on foglet",
+  "main": "index.js",
+  "scripts": {
+    "start": "foglet-scripts start",
+    "build": "cp -R ./node_modules/foglet-core/dist/* dist/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crowdstone/sensing.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crowdstone/sensing/issues"
+  },
+  "homepage": "https://github.com/crowdstone/sensing#readme",
+  "dependencies": {
+    "foglet-core": "^3.1.1"
+  },
+  "devDependencies": {
+    "foglet-scripts": "^0.2.2"
+  }
+}

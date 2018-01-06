@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Capstone crowdsensing</title>
+
+    <!-- foglet-core bundle -->
+    <script src="dist/foglet.bundle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="app.js"></script>
+    
+    <!-- bootstrap bundle -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  </head>
+
+  <body class="bg-info">
+    <div class="jumbotron text-center text-info bg-dark">
+      <h1>Capstone crowdsensing</h1>
+      <p>Cartographie des températures</p>
+    </div>
+    <!-- <button id="send-message">Hello World!</button> -->
+    
+    <div class="container center-class bg-light" style="padding-left:50px;">
+      <div class="row">
+        <form name="radioCheck">
+          <div class="form-group">
+            <p>Quelle est la température dans votre secteur ?</p>
+            
+            <!--
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-outline-success">
+                <input type="radio" name="optradio" value="Bien" id="Bien">Bien
+              </label>
+              <label class="btn btn-outline-warning">
+                <input type="radio" name="optradio" value="Moyen" id="Moyen">Moyen
+              </label>
+              <label class="btn btn-outline-danger">
+                <input type="radio" name="optradio" value="Mal" id="Mal">Mal
+              </label>
+            </div>
+            -->
+            
+            <input type="number" name="optradio" id="Temp">
+          </div>
+          <button type="button" class="btn btn-info" id="send-message">Send</button>
+        </form>
+      </div>
+
+      <br/>
+
+      <div class="row">
+        <button type="button" class="btn btn-success" disabled>Nombre de mesures : <span class="badge badge-light" id="nb"></span></button>
+      </div>
+
+      <br/>
+      <!--
+      <div class="row">
+        <button type="button" class="btn btn-warning" disabled>Somme des mesures : <span class="badge badge-light" id="all"></span></button>
+      </div>
+
+      <br/>
+  	  -->
+  	  <div class="row">
+        <button type="button" class="btn btn-danger" disabled>Moyenne :  <span class="badge badge-light" id="stat"></span></button>
+      </div>
+
+      <br/>
+      <!--
+      <div class="row">
+        <button type="button" class="btn btn-info" id="maPos" disabled>
+      </div>
+  	  -->
+    </div>
+  </body>
+</html>
