@@ -17,18 +17,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
   </head>
 
-  <body>
+  <body class="bg-info">
     <div class="jumbotron text-center text-info bg-dark">
       <h1>Capstone crowdsensing</h1>
-      <p>Cartographie des émotions</p>
+      <p>Cartographie des températures</p>
     </div>
     <!-- <button id="send-message">Hello World!</button> -->
     
-    <div class="container center-class">
+    <div class="container center-class bg-light" style="padding-left:50px;">
       <div class="row">
         <form name="radioCheck">
           <div class="form-group">
-            <p>Temperature ? :</p>
+            <p>Quelle est la température dans votre secteur ?</p>
             
             <!--
             <div class="btn-group" data-toggle="buttons">
@@ -53,16 +53,27 @@
       <br/>
 
       <div class="row">
-        <button type="button" class="btn btn-success" disabled>NB <span class="badge badge-light" id="bien"></span></button>
-        <button type="button" class="btn btn-warning" disabled>ALL <span class="badge badge-light" id="moyen"></span></button>
-        <button type="button" class="btn btn-danger" disabled>STAT <span class="badge badge-light" id="mal"></span></button>
+        <button type="button" class="btn btn-success" disabled>Nombre de mesures : <span class="badge badge-light" id="nb"></span></button>
       </div>
 
       <br/>
+      <!--
+      <div class="row">
+        <button type="button" class="btn btn-warning" disabled>Somme des mesures : <span class="badge badge-light" id="all"></span></button>
+      </div>
 
+      <br/>
+  	  -->
+  	  <div class="row">
+        <button type="button" class="btn btn-danger" disabled>Moyenne :  <span class="badge badge-light" id="stat"></span></button>
+      </div>
+
+      <br/>
+      <!--
       <div class="row">
         <button type="button" class="btn btn-info" id="maPos" disabled>
       </div>
+  	  -->
     </div>
   </body>
 </html>

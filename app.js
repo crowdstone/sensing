@@ -207,14 +207,14 @@ function maPosition(position) {
   infopos += "Longitude: "+long+"\n";
   
   //infopos += "Altitude : "+position.coords.altitude +"\n";
-  document.getElementById("maPos").innerHTML = infopos;
+  //document.getElementById("maPos").innerHTML = infopos;
   //alert(infopos);
 }
 
 function afficher(){
-  document.getElementById("bien").innerHTML =  nb ;
-  document.getElementById("moyen").innerHTML =  all ;
-  document.getElementById("mal").innerHTML =  stat ;
+  document.getElementById("nb").innerHTML =  nb ;
+  //document.getElementById("all").innerHTML =  all ;
+  document.getElementById("stat").innerHTML =  stat ;
 }
 
 function mainProg(){
