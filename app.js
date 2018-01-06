@@ -12,7 +12,9 @@ var nb = 0;
 var maZone;
 var ancienneZone;
 var lat;
+var latEnvoi;
 var long;
+var longEnvoi;
 var init = false;
 var dataInit = false;
 var maRoom = "sensing";
@@ -64,15 +66,14 @@ function choix(x){
   }*/
   
   if(verifDonne(x)){
+    nb ++;
+    all += x;
+    stat = all/nb;
     if (envoyerDonnees()){
       // RAZ
       nb = 0;
       all = 0;
       stat = 0;
-    }else{
-      nb ++;
-      all += x;
-      stat = all/nb;
     }
     afficher();
   }
@@ -97,6 +98,12 @@ function envoyerDonnees(){
     }
     else{
       //Envoyer au serveur !------------------------------------------------------ ENVOI ----------------------------------------------
+      latEnvoi = parseFloat(lat[0]+"."+lat[1].charAt(0));
+      longEnvoi = parseFloat(long[0]+"."+long[1].charAt(0));
+      
+      console.log("lat : "+latEnvoi + "; long : "+longEnvoi);
+      
+      $.post( "https://capstonesensing.appspot.com/_ah/api/temperatureAPI/v1/temperature",{value : stat, latitude : latEnvoi, longitude : longEnvoi} );
       
       envoye = true;
       
