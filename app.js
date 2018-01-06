@@ -17,6 +17,8 @@ var init = false;
 var dataInit = false;
 var maRoom = "sensing";
 
+var envoye = false;
+
 const Foglet = require('foglet').Foglet
 
 let app;
@@ -60,11 +62,66 @@ function choix(x){
   else{
     mal++;
   }*/
-  nb ++;
-  all += x;
-  stat = all/nb;
   
-  afficher();
+  if(verifDonne(x)){
+    if (envoyerDonnees()){
+      // RAZ
+      nb = 0;
+      all = 0;
+      stat = 0;
+    }else{
+      nb ++;
+      all += x;
+      stat = all/nb;
+    }
+    afficher();
+  }
+  else{
+    console.log("la verif est pas passé");
+  }
+}
+
+function envoyerDonnees(){
+  var id = app.getRandomNeighbourId();
+  if(id !== null){
+    //Il y a des gens, on envoie rien
+    if(envoye){
+      envoye = false;
+      return false;
+    }
+  }
+  else{
+    if(envoye ){
+      //on envoi pas, c'est deja fait
+      return false;
+    }
+    else{
+      //Envoyer au serveur !------------------------------------------------------ ENVOI ----------------------------------------------
+      
+      envoye = true;
+      
+      return true;
+    }
+  }
+}
+
+function verifDonne(x){
+  var min = -100;
+  var max = 100;
+  var alea = 20;
+  
+  if(x > max || x < min){
+    console.log("Données inexactes");
+    return false;
+  }
+  else if(nb > 0 && ((x > stat+alea) || (x < stat-alea))){
+    console.log("Données inexactes");
+    return false;
+  }
+  else {
+    console.log("Données exactes");
+    return true;
+  }
 }
 
 function broad(x, id){
